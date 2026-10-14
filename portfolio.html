@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uday Vishwas | Java Full Stack Developer</title>
+  <meta name="description" content="Portfolio of Uday Vishwas, a Java Full Stack Developer skilled in Java, Spring Boot, React.js, JavaScript, HTML, CSS and Tailwind CSS.">
+
+  <style>
+    /* ============ CSS VARIABLES ============ */
+    :root {
+      --bg: #070b14;
+      --bg-alt: #0b1120;
+      --card: #0f172a;
+      --card-2: #131c33;
+      --border: rgba(148, 163, 184, 0.14);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #22d3ee;
+      --accent-2: #3b82f6;
+      --gradient: linear-gradient(135deg, var(--accent-2), var(--accent));
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+      --nav-h: 72px;
+    }
+
+    /* ============ RESET & BASE ============ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    .container { width: min(1140px, 92%); margin-inline: auto; }
+
+    section { padding: 96px 0; }
+    section:nth-of-type(even) { background: var(--bg-alt); }
+
+    .section-head { text-align: center; margin-bottom: 56px; }
+    .section-head .tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); line-height: 1.2; }
+    .section-head h2::after {
+      content: "";
+      display: block;
+      width: 64px; height: 4px;
+      margin: 16px auto 0;
+      border-radius: 4px;
+      background: var(--gradient);
+    }
+
+    /* ============ BUTTONS ============ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+    }
+    .btn-primary { background: var(--gradient); color: #04101c; box-shadow: 0 8px 24px rgba(34, 211, 238, 0.25); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(34, 211, 238, 0.4); }
+    .btn-outline { border-color: var(--accent); color: var(--accent); background: transparent; }
+    .btn-outline:hover { background: var(--accent); color: #04101c; transform: translateY(-3px); }
+
+    /* ============ NAVBAR (CSS-only mobile menu) ============ */
+    header.navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(7, 11, 20, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.1rem; }
+    .brand img {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
+    }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.93rem;
+      color: var(--muted);
+      transition: color 0.3s, background 0.3s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(34, 211, 238, 0.1); }
+
+    #nav-toggle { display: none; }
+    .nav-toggle-label { display: none; cursor: pointer; width: 28px; height: 22px; position: relative; }
+    .nav-toggle-label span,
+    .nav-toggle-label span::before,
+    .nav-toggle-label span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%; height: 3px;
+      background: var(--text);
+      border-radius: 3px;
+      transition: transform 0.3s, opacity 0.3s, top 0.3s;
+    }
+    .nav-toggle-label span { top: 9.5px; }
+    .nav-toggle-label span::before { top: -9px; }
+    .nav-toggle-label span::after { top: 9px; }
+    #nav-toggle:checked + .nav-toggle-label span { background: transparent; }
+    #nav-toggle:checked + .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+    #nav-toggle:checked + .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+    /* ============ HERO ============ */
+    .hero {
+      padding: 90px 0 100px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.12), transparent 45%),
+        radial-gradient(circle at 10% 80%, rgba(59, 130, 246, 0.12), transparent 45%),
+        var(--bg);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      align-items: center;
+    }
+    .hero-label {
+      display: inline-block;
+      padding: 6px 16px;
+      border: 1px solid rgba(34, 211, 238, 0.4);
+      background: rgba(34, 211, 238, 0.08);
+      color: var(--accent);
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      margin-bottom: 22px;
+    }
+    .hero h1 { font-size: clamp(2.3rem, 6vw, 3.9rem); line-height: 1.12; margin-bottom: 12px; }
+    .hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero h3 { font-size: clamp(1.15rem, 2.5vw, 1.5rem); color: var(--muted); font-weight: 500; margin-bottom: 18px; }
+    .hero p { color: var(--muted); max-width: 540px; margin-bottom: 34px; font-size: 1.05rem; }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 16px; }
+
+    .hero-photo { display: flex; justify-content: center; }
+    .photo-frame {
+      position: relative;
+      width: min(360px, 78vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      padding: 8px;
+      background: var(--gradient);
+      box-shadow: 0 0 60px rgba(34, 211, 238, 0.3), var(--shadow);
+      animation: float 6s ease-in-out infinite;
+    }
+    .photo-frame::before {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      border: 2px dashed rgba(34, 211, 238, 0.35);
+    }
+    .photo-frame img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top;
+      border: 6px solid var(--bg);
+      background: #fff;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* ============ ABOUT ============ */
+    .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 18px; font-size: 1.05rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .chip {
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      background: rgba(34, 211, 238, 0.08);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      color: var(--accent);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .chip:hover { background: rgba(34, 211, 238, 0.18); transform: translateY(-2px); }
+
+    .info-card {
+      background: linear-gradient(160deg, var(--card-2), var(--card));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+    .info-card h3 { margin-bottom: 18px; font-size: 1.15rem; }
+    .info-row { display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--border); }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .label { color: var(--muted); font-size: 0.9rem; }
+    .info-row .value { font-weight: 600; text-align: right; font-size: 0.95rem; }
+
+    /* ============ SKILLS ============ */
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+    }
+    .skill-card:hover { transform: translateY(-8px); border-color: rgba(34, 211, 238, 0.5); box-shadow: 0 16px 40px rgba(34, 211, 238, 0.12); }
+    .skill-card h3 { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 1.3rem; }
+    .skill-icon {
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      border-radius: 12px;
+      background: var(--gradient);
+      color: #04101c;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .skill-list { display: grid; gap: 18px; }
+    .skill-top { display: flex; justify-content: space-between; font-size: 0.95rem; font-weight: 500; margin-bottom: 8px; }
+    .skill-top span:last-child { color: var(--accent); }
+    .bar { height: 8px; border-radius: 8px; background: rgba(148, 163, 184, 0.15); overflow: hidden; }
+    .bar i { display: block; height: 100%; border-radius: 8px; background: var(--gradient); }
+
+    /* ============ PROJECTS ============ */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
+    }
+    .project-card:hover { transform: translateY(-8px); border-color: rgba(34, 211, 238, 0.5); box-shadow: var(--shadow); }
+    .project-thumb {
+      height: 150px;
+      display: grid; place-items: center;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      background:
+        linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(34, 211, 238, 0.1)),
+        var(--card-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .project-body { padding: 26px; display: flex; flex-direction: column; flex: 1; }
+    .project-body h3 { font-size: 1.18rem; margin-bottom: 10px; }
+    .project-body p { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; flex: 1; }
+    .tech { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .tech span {
+      font-size: 0.76rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.14);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .project-body .btn { padding: 10px 22px; font-size: 0.88rem; align-self: flex-start; }
+
+    /* ============ EDUCATION ============ */
+    .timeline { position: relative; max-width: 760px; margin-inline: auto; padding-left: 36px; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 8px; top: 6px; bottom: 6px;
+      width: 3px;
+      background: var(--gradient);
+      border-radius: 3px;
+    }
+    .edu-item { position: relative; margin-bottom: 28px; }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-item::before {
+      content: "";
+      position: absolute;
+      left: -36px; top: 26px;
+      width: 19px; height: 19px;
+      border-radius: 50%;
+      background: var(--bg-alt);
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.5);
+    }
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      transition: transform 0.35s, border-color 0.35s;
+    }
+    .edu-card:hover { transform: translateX(8px); border-color: rgba(34, 211, 238, 0.5); }
+    .edu-card h3 { font-size: 1.25rem; }
+    .edu-card .sub { color: var(--muted); }
+    .badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 3px 14px;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.35);
+      color: var(--accent);
+    }
+
+    /* ============ WHY HIRE ME ============ */
+    .why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .why-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s;
+    }
+    .why-card:hover { transform: translateY(-8px); border-color: rgba(34, 211, 238, 0.5); box-shadow: 0 16px 40px rgba(34, 211, 238, 0.12); }
+    .why-icon {
+      width: 60px; height: 60px;
+      margin: 0 auto 20px;
+      display: grid; place-items: center;
+      border-radius: 16px;
+      background: rgba(34, 211, 238, 0.1);
+      border: 1px solid rgba(34, 211, 238, 0.3);
+      color: var(--accent);
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-family: Consolas, "Courier New", monospace;
+    }
+    .why-card h3 { font-size: 1.08rem; margin-bottom: 10px; }
+    .why-card p { color: var(--muted); font-size: 0.93rem; }
+
+    /* ============ CONTACT ============ */
+    .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start; }
+    .contact-info p.lead { color: var(--muted); margin-bottom: 28px; font-size: 1.05rem; }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      border-radius: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .contact-item:hover { border-color: rgba(34, 211, 238, 0.5); transform: translateX(6px); }
+    .contact-item .ic {
+      flex-shrink: 0;
+      width: 44px; height: 44px;
+      display: grid; place-items: center;
+      border-radius: 12px;
+      background: var(--gradient);
+      color: #04101c;
+      font-weight: 800;
+    }
+    .contact-item small { display: block; color: var(--muted); font-size: 0.8rem; line-height: 1.3; }
+    .contact-item strong { font-size: 0.98rem; }
+    .contact-info .btn { margin-top: 12px; }
+
+    .contact-form {
+      background: linear-gradient(160deg, var(--card-2), var(--card));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.88rem; margin-bottom: 8px; color: var(--muted); }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.97rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-group textarea { min-height: 130px; resize: vertical; }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.15);
+    }
+    .form-note { margin-top: 14px; font-size: 0.8rem; color: var(--muted); }
+
+    /* ============ FOOTER ============ */
+    footer { background: #04070d; border-top: 1px solid var(--border); padding: 48px 0 28px; text-align: center; }
+    footer .f-role { color: var(--accent); font-weight: 600; margin-bottom: 20px; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 26px; }
+    .footer-links a { color: var(--muted); font-size: 0.93rem; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--accent); }
+    footer .copy { color: var(--muted); font-size: 0.88rem; padding-top: 22px; border-top: 1px solid var(--border); }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 992px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 860px) {
+      .nav-toggle-label { display: block; }
+      .nav-links {
+        position: absolute;
+        top: var(--nav-h);
+        left: -4%; right: -4%;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(7, 11, 20, 0.97);
+        border-bottom: 1px solid var(--border);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .nav-links a { width: 100%; padding: 16px 8%; border-radius: 0; border-top: 1px solid var(--border); }
+      #nav-toggle:checked ~ .nav-links { max-height: 420px; }
+
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-grid { text-align: center; gap: 48px; }
+      .hero-photo { order: -1; }
+      .hero p { margin-inline: auto; }
+      .hero-btns { justify-content: center; }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 72px 0; }
+      .projects-grid, .why-grid { grid-template-columns: 1fr; }
+      .contact-form, .info-card, .skill-card { padding: 24px; }
+      .hero-btns .btn { width: 100%; }
+      .timeline { padding-left: 30px; }
+      .edu-item::before { left: -30px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .photo-frame { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body id="home">
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand" aria-label="Uday Vishwas - Home">
+        <!-- Replace images/uday-vishwas.jpg with the path of my uploaded profile photo if necessary -->
+        <img src="images/uday-vishwas.jpg" alt="Uday Vishwas small profile photo">
+        <span>Uday Vishwas</span>
+      </a>
+
+      <input type="checkbox" id="nav-toggle" aria-label="Toggle navigation menu">
+      <label for="nav-toggle" class="nav-toggle-label" aria-hidden="true"><span></span></label>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <span class="hero-label">JAVA FULL STACK DEVELOPER</span>
+          <h1>Hi, I'm <span>Uday Vishwas</span></h1>
+          <h3>Java Full Stack Developer</h3>
+          <p>I build modern, responsive and user-focused web applications using Java, Spring Boot and modern frontend technologies.</p>
+          <div class="hero-btns">
+            <a href="#skills" class="btn btn-primary">View My Skills</a>
+            <a href="#contact" class="btn btn-outline">Contact Me</a>
+          </div>
+        </div>
+
+        <div class="hero-photo">
+          <div class="photo-frame">
+            <!-- Replace images/uday-vishwas.jpg with the path of my uploaded profile photo if necessary -->
+            <img src="./uday.jpeg" alt="Uday Vishwas - Java Full Stack Developer profile photo">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">Who I Am</span>
+          <h2>About Me</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>Hello, I'm Uday Vishwas, a Java Full Stack Developer from Pilibhit, Uttar Pradesh. I have knowledge of frontend and backend development and enjoy creating responsive, clean and practical web applications.</p>
+            <p>My main technologies include:</p>
+            <div class="chips">
+              <span class="chip">HTML</span>
+              <span class="chip">CSS</span>
+              <span class="chip">Tailwind CSS</span>
+              <span class="chip">JavaScript</span>
+              <span class="chip">React.js</span>
+              <span class="chip">Java</span>
+              <span class="chip">Spring Boot</span>
+            </div>
+          </div>
+
+          <aside class="info-card" aria-label="Personal information">
+            <h3>Professional Information</h3>
+            <div class="info-row"><span class="label">Name</span><span class="value">Uday Vishwas</span></div>
+            <div class="info-row"><span class="label">Role</span><span class="value">Java Full Stack Developer</span></div>
+            <div class="info-row"><span class="label">Location</span><span class="value">Pilibhit, Uttar Pradesh</span></div>
+            <div class="info-row"><span class="label">Education</span><span class="value">BCA</span></div>
+            <div class="info-row"><span class="label">Phone</span><span class="value">9389821909</span></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">What I Know</span>
+          <h2>My Skills</h2>
+        </div>
+
+        <div class="skills-grid">
+          <article class="skill-card">
+            <h3><span class="skill-icon">&lt;/&gt;</span> Frontend</h3>
+            <div class="skill-list">
+              <div><div class="skill-top"><span>HTML5</span><span>Proficient</span></div><div class="bar"><i style="width:90%"></i></div></div>
+              <div><div class="skill-top"><span>CSS3</span><span>Proficient</span></div><div class="bar"><i style="width:85%"></i></div></div>
+              <div><div class="skill-top"><span>JavaScript</span><span>Good</span></div><div class="bar"><i style="width:75%"></i></div></div>
+              <div><div class="skill-top"><span>React.js</span><span>Good</span></div><div class="bar"><i style="width:70%"></i></div></div>
+              <div><div class="skill-top"><span>Tailwind CSS</span><span>Good</span></div><div class="bar"><i style="width:80%"></i></div></div>
+            </div>
+          </article>
+
+          <article class="skill-card">
+            <h3><span class="skill-icon">{ }</span> Backend</h3>
+            <div class="skill-list">
+              <div><div class="skill-top"><span>Java</span><span>Good</span></div><div class="bar"><i style="width:80%"></i></div></div>
+              <div><div class="skill-top"><span>Spring Boot</span><span>Good</span></div><div class="bar"><i style="width:72%"></i></div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">My Work</span>
+          <h2>My Projects</h2>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-thumb">Java + Spring</div>
+            <div class="project-body">
+              <h3>Java Full Stack Web Application</h3>
+              <p>A responsive full-stack web application developed using Java, Spring Boot and modern frontend technologies.</p>
+              <div class="tech"><span>Java</span><span>Spring Boot</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+              <!-- Replace "#" with your real project link later -->
+              <a href="#" class="btn btn-outline">View Project</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-thumb">React.js</div>
+            <div class="project-body">
+              <h3>React Frontend Application</h3>
+              <p>A modern responsive frontend application with clean UI, reusable components and mobile-friendly design.</p>
+              <div class="tech"><span>React.js</span><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
+              <!-- Replace "#" with your real project link later -->
+              <a href="#" class="btn btn-outline">View Project</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="project-thumb">HTML + CSS</div>
+            <div class="project-body">
+              <h3>Responsive Portfolio Website</h3>
+              <p>A professional responsive portfolio website designed to showcase my skills, education and development projects.</p>
+              <div class="tech"><span>HTML5</span><span>CSS3</span></div>
+              <!-- Replace "#" with your real project link later -->
+              <a href="#" class="btn btn-outline">View Project</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section id="education">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">My Journey</span>
+          <h2>Education</h2>
+        </div>
+
+        <div class="timeline">
+          <div class="edu-item">
+            <div class="edu-card">
+              <h3>BCA</h3>
+              <p class="sub">Bachelor of Computer Applications</p>
+              <span class="badge">Completed</span>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-card">
+              <h3>12th</h3>
+              <p class="sub">UP Board</p>
+            </div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-card">
+              <h3>10th</h3>
+              <p class="sub">UP Board</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHY HIRE ME ============ -->
+    <section id="why-hire">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">My Strengths</span>
+          <h2>Why Hire Me?</h2>
+        </div>
+
+        <div class="why-grid">
+          <article class="why-card">
+            <div class="why-icon">&lt;/&gt;</div>
+            <h3>Full Stack Development</h3>
+            <p>Comfortable working on both frontend interfaces and backend logic to deliver complete web solutions.</p>
+          </article>
+          <article class="why-card">
+            <div class="why-icon">?!</div>
+            <h3>Problem Solving</h3>
+            <p>I enjoy breaking down real-world challenges and building practical, efficient solutions.</p>
+          </article>
+          <article class="why-card">
+            <div class="why-icon">[ ]</div>
+            <h3>Responsive Web Design</h3>
+            <p>Clean, mobile-friendly layouts that look and work great on every screen size.</p>
+          </article>
+          <article class="why-card">
+            <div class="why-icon">{ }</div>
+            <h3>Modern Java Backend Development</h3>
+            <p>Building structured, maintainable backend applications using Java and Spring Boot.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">Get In Touch</span>
+          <h2>Let's Work Together</h2>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <p class="lead">Have a project or opportunity in mind? Feel free to get in touch with me.</p>
+
+            <div class="contact-item">
+              <span class="ic">U</span>
+              <div><small>Name</small><strong>Uday Vishwas</strong></div>
+            </div>
+            <div class="contact-item">
+              <span class="ic">L</span>
+              <div><small>Location</small><strong>Pilibhit, Uttar Pradesh, India</strong></div>
+            </div>
+            <div class="contact-item">
+              <span class="ic">P</span>
+              <div><small>Phone</small><strong>9389821909</strong></div>
+            </div>
+
+            <a href="tel:9389821909" class="btn btn-primary">Call Me</a>
+          </div>
+
+          <!--
+            NOTE: This form is for display only. It uses only HTML and CSS,
+            so it does not send emails. To make it work later, connect it to
+            a form service or backend by setting the action attribute.
+          -->
+          <form class="contact-form" action="#" method="post" onsubmit="return false;" aria-label="Contact form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <p class="form-note">Note: This demo form does not send emails. Please use the Call Me button to reach me.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container">
+      <p class="f-role">Java Full Stack Developer</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p class="copy">&copy; 2026 Uday Vishwas. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
